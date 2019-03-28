@@ -8,23 +8,8 @@
 
 #import "PIGRSAUntileFile.h"
 #import <Security/Security.h>
+#import "NSObject+PIGCategory.h"
 @implementation PIGRSAUntileFile
-
-
-//64 编码
-static NSString * base64_encode_data(NSData*data){
-    data = [data base64EncodedDataWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
-    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
-
-//64 解码
-static NSData * base64_decode(NSString*base64String){ //base64String 为 base64 字符串
-    NSData * data = [[NSData alloc]initWithBase64EncodedString:base64String options:(NSDataBase64DecodingIgnoreUnknownCharacters)];
-    return data;
-}
-
-
 
 #pragma ------------------ 公钥 加密 -----------------------------
 + (NSString *)EncryptString:(NSString *)context publicWithContextFile:(NSString *)path
