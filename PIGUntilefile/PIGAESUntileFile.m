@@ -9,20 +9,10 @@
 #import "PIGAESUntileFile.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonCryptor.h>
+#import "NSObject+PIGCategory.h"
 @implementation PIGAESUntileFile
 
-//64 编码
-static NSString * base64_encode_data(NSData*data){
-    data = [data base64EncodedDataWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
-    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    return ret;
-}
 
-//64 解码
-static NSData * base64_decode(NSString*base64String){ //base64String 为 base64 字符串
-    NSData * data = [[NSData alloc]initWithBase64EncodedString:base64String options:(NSDataBase64DecodingIgnoreUnknownCharacters)];
-    return data;
-}
 
 
 /**
@@ -33,7 +23,7 @@ static NSData * base64_decode(NSString*base64String){ //base64String 为 base64 
  */
 +(NSString*)AESEncrypt:(NSString * )context key:(NSString*)key iv:(nullable NSString *)iv
 {
-    return base64_encode_data([self opention:context key:key iv:iv type:kCCEncrypt]);
+    return PIGbase64_encode_data([self opention:context key:key iv:iv type:kCCEncrypt]);
 }
 
 
@@ -45,7 +35,7 @@ static NSData * base64_decode(NSString*base64String){ //base64String 为 base64 
  */
 +(NSData*)AESDecrypt:(NSString * )context key:(NSString*)key iv:(nullable NSString *)iv
 {
-    NSData * data =  base64_decode(context);
+    NSData * data =  PIGbase64_decode(context);
     
     context = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     

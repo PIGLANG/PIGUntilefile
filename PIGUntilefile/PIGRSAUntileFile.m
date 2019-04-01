@@ -20,7 +20,7 @@
     
    NSData * data = [self encryptData:[context dataUsingEncoding:NSUTF8StringEncoding] withKeyRef:keyRef];
    
-    return base64_encode_data(data);
+    return PIGbase64_encode_data(data);
 }
 
 
@@ -29,7 +29,7 @@
 +(NSString*)EncryptString:(NSString *)context publicKey:(NSString *)key{
     
     NSData * data = [self encryptData:[context dataUsingEncoding:NSUTF8StringEncoding] publicKey:key];
-    NSString * res = base64_encode_data(data);
+    NSString * res = PIGbase64_encode_data(data);
     return res;
 }
 
@@ -97,7 +97,7 @@
     key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
 
-    NSData * data = base64_decode(key);
+    NSData * data = PIGbase64_decode(key);
     data = [self publicKeyHeader:data];
     if (!data) {
         return nil;
@@ -261,7 +261,7 @@
     
     if (!keyRef) return nil;
     
-    NSData * data = base64_decode(context);
+    NSData * data = PIGbase64_decode(context);
     
     data =  [self DecryptData:data withKeyRef:keyRef];
     
@@ -275,7 +275,7 @@
     if (!context) {
         return nil;
     }
-    NSData * data = base64_decode(context);
+    NSData * data = PIGbase64_decode(context);
     
     data = [self DecryptData:data privateKey:key];
     
@@ -352,7 +352,7 @@
     privateKey = [privateKey stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     privateKey = [privateKey stringByReplacingOccurrencesOfString:@" "  withString:@""];
     
-    NSData * data = base64_decode(privateKey);
+    NSData * data = PIGbase64_decode(privateKey);
     data = [self privateKeyHeader:data];
     if (!data) {
         return nil;

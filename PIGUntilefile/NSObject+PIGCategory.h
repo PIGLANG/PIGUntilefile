@@ -13,17 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (PIGCategory)
 //解码
-NSString * base64_encode_data(NSData*data);
+NSString * PIGbase64_encode_data(NSData*data);
 
 //解码
-NSData * base64_decode(NSString*base64String);
+NSData * PIGbase64_decode(NSString*base64String);
 
 
 //解码
-NSString* Base64Decoding(NSString *baseString);
+NSString* PIGBase64Decoding(NSString *baseString);
 
 //解码
-NSString* Base64Encoding(NSString *string );
+NSString* PIGBase64Encoding(NSString *string );
 
 
 /**

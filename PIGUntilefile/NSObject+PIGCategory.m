@@ -10,33 +10,33 @@
 
 @implementation NSObject (PIGCategory)
 
-
-NSString * base64_encode_data(NSData*data){
+//编码
+NSString * PIGbase64_encode_data(NSData*data){
     data = [data base64EncodedDataWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
     NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     return ret;
 }
 
 //64 解码
-NSData * base64_decode(NSString*base64String){ //base64String 为 base64 字符串
+NSData * PIGbase64_decode(NSString*base64String){ //base64String 为 base64 字符串
     NSData * data = [[NSData alloc]initWithBase64EncodedString:base64String options:(NSDataBase64DecodingIgnoreUnknownCharacters)];
     return data;
 }
 
+//编码
+NSString* PIGBase64Encoding(NSString *string ){
+    NSData * data= [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSString * RSAKey = [data base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
+    return RSAKey;
+}
 
 //解码
-NSString* Base64Decoding(NSString *baseString){
+NSString* PIGBase64Decoding(NSString *baseString){
     NSData * data = [[NSData alloc]initWithBase64EncodedString:baseString options:NSDataBase64DecodingIgnoreUnknownCharacters];
     NSString * RSAKey = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     return RSAKey;
 }
 
-//编码
-NSString* Base64Encoding(NSString *string ){
-    NSData * data= [string dataUsingEncoding:NSUTF8StringEncoding];
-    NSString * RSAKey = [data base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
-    return RSAKey;
-}
 // 16 进制 转 ASSCII 并且 异或
 
 +(NSString*)XorASSCII:(NSString*)str numb:(int)numb{
