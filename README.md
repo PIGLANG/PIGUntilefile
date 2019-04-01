@@ -1,5 +1,5 @@
 # PIGUntilefile
-1.PIGUntilefile 主要是一系列加密工具 0.2.0 版本号
+1.PIGUntilefile 主要是一系列加密工具
 
 
 PIGRSAUntileFile 主要是RSA加解密
@@ -11,4 +11,11 @@ PIGAESUntileFile AES 加解密
 PIG3DesUntileFile 3DES 加解密
 
 PIGSHAUntileFile SHA 加解密 
+
+# version 1.0.0 版本 
+
+主要是修改 base64 编码  解码  与 其他的文件中base64编码和解码 冲突问题。
+
+
+
 
