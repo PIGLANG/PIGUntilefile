@@ -283,6 +283,19 @@
     
     return ret;
 }
+// 公钥解密
++ (NSString *)DecryptString:(NSString *)context publicKey:(NSString *)publicKey{
+    if (!context) {
+        return nil;
+    }
+    NSData * data = PIGbase64_decode(context);
+    
+    data = [self DecryptData:data publicKey:publicKey];
+    
+    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    return ret;
+}
 
 +(NSData*)DecryptData:(NSData*)data privateKey:(NSString*)privateKey{
     
@@ -298,6 +311,17 @@
     return [self DecryptData:data withKeyRef:keyRef];
 }
 
++(NSData*)DecryptData:(NSData*)data publicKey:(NSString*)publicKey{
+    
+    if (!data||!publicKey) {
+        return nil;
+    }
+    SecKeyRef keyRef = [self GetpublicKey:publicKey];
+    if (!keyRef) {
+        return nil;
+    }
+    return [self DecryptData:data withKeyRef:keyRef];
+}
 
 
 #pragma --------------   核心 部分 ------------------------------

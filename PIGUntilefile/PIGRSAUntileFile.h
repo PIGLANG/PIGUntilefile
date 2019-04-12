@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*)DecryptString:(NSString*)context privateWithContextFile:(NSString*)path password:(NSString*)password;
 
 
+// 公钥解密
++ (NSString *)DecryptString:(NSString *)context publicKey:(NSString *)publicKey;
+
+
 
 /**
  *  加密方法

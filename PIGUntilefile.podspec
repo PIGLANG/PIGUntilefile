@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "PIGUntilefile"
-  s.version      = "0.2.2"
+  s.version      = "1.1.0"
   s.summary      = "A short description of PIGUntilefile."
 
   s.description  = "工程 主要是 md5 sha1 sha256 eds RSA 5种加密算法 修改某些兼容性的BUG"
