@@ -11,41 +11,98 @@
 #import "NSObject+PIGCategory.h"
 @implementation PIGRSAUntileFile
 
-#pragma ------------------ 公钥 加密 -----------------------------
-+ (NSString *)EncryptString:(NSString *)context publicWithContextFile:(NSString *)path
-{
-    if (!context||!path) return nil;
+
+#pragma --------------------  公钥 ------------------------
+
++ (NSData *)PublicKeyHeader:(NSData *)d_key{
+    if (d_key == nil) return(nil);
     
-   SecKeyRef keyRef = [self getPublicKeyRefWithContentsOfFile:path];
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
     
-   NSData * data = [self encryptData:[context dataUsingEncoding:NSUTF8StringEncoding] withKeyRef:keyRef];
-   
-    return PIGbase64_encode_data(data);
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx     = 0;
+    
+    if (c_key[idx++] != 0x30) return(nil);
+    
+    if (c_key[idx] > 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    static unsigned char seqiod[] =
+    { 0x30,   0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
+        0x01, 0x05, 0x00 };
+    if (memcmp(&c_key[idx], seqiod, 15)) return(nil);
+    
+    idx += 15;
+    
+    if (c_key[idx++] != 0x03) return(nil);
+    
+    if (c_key[idx] > 0x80) idx += c_key[idx] - 0x80 + 1;
+    else idx++;
+    
+    if (c_key[idx++] != '\0') return(nil);
+    return([NSData dataWithBytes:&c_key[idx] length:len - idx]);
 }
 
-
-
-//公钥 加密
-+(NSString*)EncryptString:(NSString *)context publicKey:(NSString *)key{
++ (SecKeyRef)GetPublicKey:(NSString *)key{
+    NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
+    NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
+    if(spos.location != NSNotFound && epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
+    key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
     
-    NSData * data = [self encryptData:[context dataUsingEncoding:NSUTF8StringEncoding] publicKey:key];
-    NSString * res = PIGbase64_encode_data(data);
-    return res;
-}
-
-+ (NSData *)encryptData:(NSData *)data publicKey:(NSString *)pubKey{
-    if(!data || !pubKey){
+    NSData *data = PIGbase64_decode(key);
+    data = [self PublicKeyHeader:data];
+    if(!data){
         return nil;
     }
-    SecKeyRef keyRef = [self GetpublicKey:pubKey];
-    if(!keyRef){
+    
+    NSString *tag = @"RSAUtil_PubKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
+    
+    // Delete any old lingering key with the same tag
+    NSMutableDictionary *publicKey = [[NSMutableDictionary alloc] init];
+    [publicKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [publicKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)publicKey);
+    
+    // Add persistent version of the key to system keychain
+    [publicKey setObject:data forKey:(__bridge id)kSecValueData];
+    [publicKey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+    
+    CFTypeRef persistKey = nil;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)publicKey, &persistKey);
+    if (persistKey != nil){
+        CFRelease(persistKey);
+    }
+    if ((status != noErr) && (status != errSecDuplicateItem)) {
         return nil;
     }
-    return [self encryptData:data withKeyRef:keyRef];
+    
+    [publicKey removeObjectForKey:(__bridge id)kSecValueData];
+    [publicKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [publicKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [publicKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    
+    // Now fetch the SecKeyRef version of the key
+    SecKeyRef keyRef = nil;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)publicKey, (CFTypeRef *)&keyRef);
+    if(status != noErr){
+        return nil;
+    }
+    return keyRef;
 }
-
-
-#pragma ---------------  核心 部分 ------------------------------------
 
 //获取公钥
 + (SecKeyRef)getPublicKeyRefWithContentsOfFile:(NSString *)filePath{
@@ -76,63 +133,96 @@
 
 
 
-+(SecKeyRef)GetpublicKey:(NSString*)key{
+
+
+
+
+
+
+#pragma  ----------------------   私钥 --------------------------
+
+#pragma PrivateKeyHeader
++ (NSData *)PrivateKeyHeader:(NSData *)d_key{
+    if (d_key == nil) return(nil);
     
-    NSRange spos = [key rangeOfString:@"-----BEGIN PUBLIC KEY-----"];
+    unsigned long len = [d_key length];
+    if (!len) return(nil);
     
-    NSRange epos = [key rangeOfString:@"-----END PUBLIC KEY-----"];
+    unsigned char *c_key = (unsigned char *)[d_key bytes];
+    unsigned int  idx     = 22;
     
-    if (spos.location != NSNotFound && epos.location != NSNotFound) {
-        
-        NSUInteger s = spos.location+spos.length;
-        
-        NSUInteger l = epos.location;
-        
-        key = [key substringWithRange:NSMakeRange(s, l-s)];
+    if (0x04 != c_key[idx++]) return nil;
+    unsigned int c_len = c_key[idx++];
+    int det = c_len & 0x80;
+    if (!det) {
+        c_len = c_len & 0x7f;
+    } else {
+        int byteCount = c_len & 0x7f;
+        if (byteCount + idx > len) {
+            return nil;
+        }
+        unsigned int accum = 0;
+        unsigned char *ptr = &c_key[idx];
+        idx += byteCount;
+        while (byteCount) {
+            accum = (accum << 8) + *ptr;
+            ptr++;
+            byteCount--;
+        }
+        c_len = accum;
     }
-    
-    //处理 特殊
+    return [d_key subdataWithRange:NSMakeRange(idx, c_len)];
+}
+
+#pragma  SecKeyRef
++ (SecKeyRef)GetPrivateKey:(NSString *)key{
+    NSRange spos;
+    NSRange epos;
+    spos = [key rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
+    if(spos.length > 0){
+        epos = [key rangeOfString:@"-----END RSA PRIVATE KEY-----"];
+    }else{
+        spos = [key rangeOfString:@"-----BEGIN PRIVATE KEY-----"];
+        epos = [key rangeOfString:@"-----END PRIVATE KEY-----"];
+    }
+    if(spos.location != NSNotFound && epos.location != NSNotFound){
+        NSUInteger s = spos.location + spos.length;
+        NSUInteger e = epos.location;
+        NSRange range = NSMakeRange(s, e-s);
+        key = [key substringWithRange:range];
+    }
     key = [key stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     key = [key stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     key = [key stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     key = [key stringByReplacingOccurrencesOfString:@" "  withString:@""];
-
-    NSData * data = PIGbase64_decode(key);
-    data = [self publicKeyHeader:data];
-    if (!data) {
+    
+    // This will be base64 encoded, decode it.
+    NSData *data = PIGbase64_decode(key);
+    data = [self PrivateKeyHeader:data];
+    if(!data){
         return nil;
     }
     
-    
-    // This will be base64 encoded, decode it
-    NSString * tag = @"RSAUtil_PubKey";
-    
-    NSData * data_tag = [NSData dataWithBytes:[tag UTF8String] length:tag.length];
+    //a tag to read/write keychain storage
+    NSString *tag = @"RSAUtil_PrivKey";
+    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
     
     // Delete any old lingering key with the same tag
-    NSMutableDictionary * pubkey = [[NSMutableDictionary alloc]init];
-    
-    [pubkey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    
-    [pubkey setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    [pubkey setObject:data_tag forKey: (__bridge id)kSecAttrApplicationTag];
-    
-    SecItemDelete((__bridge CFDictionaryRef) pubkey);
+    NSMutableDictionary *privateKey = [[NSMutableDictionary alloc] init];
+    [privateKey setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [privateKey setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    SecItemDelete((__bridge CFDictionaryRef)privateKey);
     
     // Add persistent version of the key to system keychain
-    [pubkey setObject:data forKey:(__bridge id)kSecValueData];
-    
-    [pubkey setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
+    [privateKey setObject:data forKey:(__bridge id)kSecValueData];
+    [privateKey setObject:(__bridge id) kSecAttrKeyClassPrivate forKey:(__bridge id)
      kSecAttrKeyClass];
-    
-    [pubkey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
      kSecReturnPersistentRef];
     
     CFTypeRef persistKey = nil;
-    
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)pubkey, &persistKey);
-    
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)privateKey, &persistKey);
     if (persistKey != nil){
         CFRelease(persistKey);
     }
@@ -140,191 +230,20 @@
         return nil;
     }
     
-    [pubkey removeObjectForKey:(__bridge id)kSecValueData];
-    [pubkey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [pubkey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [pubkey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+    [privateKey removeObjectForKey:(__bridge id)kSecValueData];
+    [privateKey removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [privateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [privateKey setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
     
     // Now fetch the SecKeyRef version of the key
     SecKeyRef keyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)pubkey, (CFTypeRef *)&keyRef);
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)privateKey, (CFTypeRef *)&keyRef);
     if(status != noErr){
         return nil;
     }
     return keyRef;
-
-    
 }
 
-+(NSData*)publicKeyHeader:(NSData*)data_key{
-    
-    if (data_key==nil) return nil;
-    
-    unsigned long len = data_key.length;
-    
-    if (!len) return nil;
-    
-    unsigned char * c_key = (unsigned char *)data_key.bytes;
-    
-    unsigned int indext = 0;
-    
-    if (c_key[indext++] != 0x30) return nil;
-    
-    if (c_key[indext] > 0x80) indext += c_key[indext] - 0x80 + 1;
-    
-    else indext++;
-    
-    static unsigned char seqiod[] = { 0x30,   0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-        0x01, 0x05, 0x00 };
-    
-    // 比较前 15 个 字节
-    if (memcmp(&c_key[indext], seqiod, 15)) return nil;
-    
-    indext+=15;
-    
-    if (c_key[indext++] != 0x30) return nil;
-    
-    if (c_key[indext] > 0x80)  indext += c_key[indext] - 0x80 +1;
-    
-    else indext++;
-    
-    if (c_key[indext++] != '\0') return nil;
-    
-    return [NSData dataWithBytes:&c_key[indext] length:len - indext];
-}
-
-
-// 加密 操作
-+(NSData*)encryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
-    
-    const uint8_t * srcbuf = (const uint8_t*) data.bytes;
-    
-    size_t srclen = (size_t) data.length;
-    
-    size_t block_size = SecKeyGetBlockSize(keyRef);
-    
-    void *outBuf = malloc(block_size);
-    
-    size_t src_block_size = block_size - 11;
-    
-    NSMutableData * ret = [[NSMutableData alloc]init];
-    
-    for (int idx = 0; idx < srclen; idx +=src_block_size) {
-        
-        size_t data_len = srclen - idx;
-        
-        if (data_len > src_block_size) {
-            data_len = src_block_size;
-        }
-        size_t outlen = block_size;
-        
-        // 整个 加密
-        OSStatus status = noErr;
-        
-        status = SecKeyEncrypt(keyRef,
-                               kSecPaddingPKCS1,
-                               srcbuf + idx,
-                               data_len,
-                               outBuf,
-                               &outlen);
-        
-        if (status != 0) {
-            ret = nil;
-            break;
-        }else{
-            
-            [ret appendBytes:outBuf length:outlen];
-        }
-        
-    }
-    free(outBuf);
-    
-    CFRelease(keyRef);
-    
-    return ret;
-    
-}
-
-
-
-
-#pragma   ----------------------- 私钥 解密 -------------------------
-
-+ (NSString *)DecryptString:(NSString *)context privateWithContextFile:(NSString *)path password:(NSString *)password
-
-{
-    if (!context||!path||!password) {
-        return nil;
-    }
-    
-    SecKeyRef keyRef = [self getPrivateKeyRefWithContentsOfFile:path password:password];
-    
-    if (!keyRef) return nil;
-    
-    NSData * data = PIGbase64_decode(context);
-    
-    data =  [self DecryptData:data withKeyRef:keyRef];
-    
-    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    return ret;
-}
-
-//使用私钥解密
-+ (NSString *)DecryptString:(NSString *)context privateKey:(NSString *)key{
-    if (!context) {
-        return nil;
-    }
-    NSData * data = PIGbase64_decode(context);
-    
-    data = [self DecryptData:data privateKey:key];
-    
-    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    return ret;
-}
-// 公钥解密
-+ (NSString *)DecryptString:(NSString *)context publicKey:(NSString *)publicKey{
-    if (!context) {
-        return nil;
-    }
-    NSData * data = PIGbase64_decode(context);
-    
-    data = [self DecryptData:data publicKey:publicKey];
-    
-    NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    return ret;
-}
-
-+(NSData*)DecryptData:(NSData*)data privateKey:(NSString*)privateKey{
-    
-    if (!data||!privateKey) {
-        return nil;
-    }
-    
-    SecKeyRef keyRef = [self GetpublicKey:privateKey];
-    
-    if (!keyRef) {
-        return nil;
-    }
-    return [self DecryptData:data withKeyRef:keyRef];
-}
-
-+(NSData*)DecryptData:(NSData*)data publicKey:(NSString*)publicKey{
-    
-    if (!data||!publicKey) {
-        return nil;
-    }
-    SecKeyRef keyRef = [self GetpublicKey:publicKey];
-    if (!keyRef) {
-        return nil;
-    }
-    return [self DecryptData:data withKeyRef:keyRef];
-}
-
-
-#pragma --------------   核心 部分 ------------------------------
 
 
 //获取私钥
@@ -353,136 +272,61 @@
 }
 
 
+#pragma   ---------------------------- 加密 核心-----------------------
 
-//私有的Key
-+(SecKeyRef)GetprivateKey:(NSString*)privateKey{
++ (NSData *)encryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef isSign:(BOOL)isSign {
+    const uint8_t *srcbuf = (const uint8_t *)[data bytes];
+    size_t srclen = (size_t)data.length;
     
-    NSRange spos = [privateKey rangeOfString:@"-----BEGIN RSA PRIVATE KEY-----"];
+    size_t block_size = SecKeyGetBlockSize(keyRef) * sizeof(uint8_t);
+    void *outbuf = malloc(block_size);
+    size_t src_block_size = block_size - 11;
     
-    NSRange epos = [privateKey rangeOfString:@"-----END RSA PRIVATE KEY-----"];
-    
-    if (spos.location != NSNotFound && epos.location != NSNotFound) {
+    NSMutableData *ret = [[NSMutableData alloc] init];
+    for(int idx=0; idx<srclen; idx+=src_block_size){
+        //NSLog(@"%d/%d block_size: %d", idx, (int)srclen, (int)block_size);
+        size_t data_len = srclen - idx;
+        if(data_len > src_block_size){
+            data_len = src_block_size;
+        }
         
-        NSUInteger s = spos.location+spos.length;
+        size_t outlen = block_size;
+        OSStatus status = noErr;
         
-        NSUInteger l = epos.location;
-        
-        privateKey = [privateKey substringWithRange:NSMakeRange(s, l-s)];
+        if (isSign) {
+            status = SecKeyRawSign(keyRef,
+                                   kSecPaddingPKCS1,
+                                   srcbuf + idx,
+                                   data_len,
+                                   outbuf,
+                                   &outlen
+                                   );
+        } else {
+            status = SecKeyEncrypt(keyRef,
+                                   kSecPaddingPKCS1,
+                                   srcbuf + idx,
+                                   data_len,
+                                   outbuf,
+                                   &outlen
+                                   );
+        }
+        if (status != 0) {
+            NSLog(@"SecKeyEncrypt fail. Error Code: %d", status);
+            ret = nil;
+            break;
+        }else{
+            [ret appendBytes:outbuf length:outlen];
+        }
     }
     
-    //处理 特殊
-    privateKey = [privateKey stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    privateKey = [privateKey stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    privateKey = [privateKey stringByReplacingOccurrencesOfString:@"\t" withString:@""];
-    privateKey = [privateKey stringByReplacingOccurrencesOfString:@" "  withString:@""];
-    
-    NSData * data = PIGbase64_decode(privateKey);
-    data = [self privateKeyHeader:data];
-    if (!data) {
-        return nil;
-    }
-    
-    
-    // This will be base64 encoded, decode it
-    NSString * tag = @"RSAUtil_PrivateKey";
-    
-    NSData * data_tag = [NSData dataWithBytes:[tag UTF8String] length:tag.length];
-    
-    // Delete any old lingering key with the same tag
-    NSMutableDictionary * key = [[NSMutableDictionary alloc]init];
-    
-    [key setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    
-    [key setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    [key setObject:data_tag forKey: (__bridge id)kSecAttrApplicationTag];
-    
-    SecItemDelete((__bridge CFDictionaryRef) key);
-    
-    // Add persistent version of the key to system keychain
-    [key setObject:data forKey:(__bridge id)kSecValueData];
-    [key setObject:(__bridge id) kSecAttrKeyClassPublic forKey:(__bridge id)
-     kSecAttrKeyClass];
-    [key setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
-     kSecReturnPersistentRef];
-    
-    CFTypeRef persistKey = nil;
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)key, &persistKey);
-    if (persistKey != nil){
-        CFRelease(persistKey);
-    }
-    if ((status != noErr) && (status != errSecDuplicateItem)) {
-        return nil;
-    }
-    
-    [key removeObjectForKey:(__bridge id)kSecValueData];
-    [key removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
-    [key setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [key setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    // Now fetch the SecKeyRef version of the key
-    SecKeyRef keyRef = nil;
-    status = SecItemCopyMatching((__bridge CFDictionaryRef)key, (CFTypeRef *)&keyRef);
-    if(status != noErr){
-        return nil;
-    }
-    return keyRef;
+    free(outbuf);
+    CFRelease(keyRef);
+    return ret;
 }
 
 
-+(NSData*)privateKeyHeader:(NSData*)privateKey
-{
-    if (privateKey == nil) return (nil);
-    
-    unsigned long len = privateKey.length;
-    
-    if (!len) return nil;
-    
-    unsigned char * c_key = (unsigned char *) privateKey.bytes;
-    
-    unsigned int idx = 22;
-    
-    if (0x04 != c_key[idx++]) return nil;
-    
-    unsigned int c_len = c_key[idx++];
-    
-    int det = c_len & 0x80;
-    
-    if (!det) {
-       
-        c_len = c_len & 0x7f;
-        
-    }else{
-        int byteCount = c_len & 0x7f;
-        
-        if (byteCount + idx > len) {
-            return  nil;
-        }
-        
-        unsigned int accum = 0;
-        
-        unsigned char * ptr = &c_key[idx];
-        
-        idx += byteCount;
-        
-        while (byteCount) {
-            
-            accum = (accum << 8) + * ptr;
-            
-            ptr ++ ;
-            
-            byteCount -- ;
-        }
-        
-        c_len = accum;
-    }
-    
-    //
-    return [privateKey subdataWithRange:NSMakeRange(idx, c_len)];
-}
 
-+(NSData*)DecryptData:(NSData*)data withKeyRef:(SecKeyRef)keyRef
-{
++ (NSData *)decryptData:(NSData *)data withKeyRef:(SecKeyRef) keyRef{
     const uint8_t *srcbuf = (const uint8_t *)[data bytes];
     size_t srclen = (size_t)data.length;
     
@@ -535,5 +379,179 @@
     return ret;
 }
 
+
+
+
+
+#pragma --------------------  对外接口 ------------------
+
+#pragma 私钥处理
+
+/**
+ * 私钥加密
+ * @param context 加密内容
+ * @param privateKey 私钥
+ */
++(NSString *)EncryptString:(NSString *)context privateKey:(NSString *)privateKey{
+    NSData *data = [self EncryptData:[context dataUsingEncoding:NSUTF8StringEncoding] privateKey:privateKey];
+    NSString *ret = PIGbase64_encode_data(data);
+    return ret;
+    
+}
+
+/**
+ * 私钥加密
+ * @param contextData 加密内容
+ * @param privateKey 私钥
+ */
++ (NSData *)EncryptData:(NSData *)contextData privateKey:(NSString *)privateKey{
+    if(!contextData || !privateKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self GetPrivateKey:privateKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self encryptData:contextData withKeyRef:keyRef isSign:YES];
+}
+
+
+/**
+ * 私钥解密
+ *
+ */
+
++ (NSString *)DecryptString:(NSString *)str privateKey:(NSString *)privateKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self DecryptData:data privateKey:privateKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+/**
+ * 私钥解密
+ *
+ */
++ (NSData *)DecryptData:(NSData *)contextData privateKey:(NSString *)privateKey{
+    if(!contextData || !privateKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self GetPrivateKey:privateKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self decryptData:contextData withKeyRef:keyRef];
+}
+
+
+
+#pragma  公钥处理
+/**
+ * 公钥加密
+ */
++ (NSString *)EncryptString:(NSString *)context publicKey:(NSString *)publicKey{
+    NSData *data = [self EncryptData:[context dataUsingEncoding:NSUTF8StringEncoding] publicKey:publicKey];
+    NSString *ret = PIGbase64_encode_data(data);
+    return ret;
+}
+/**
+ * 公钥加密
+ */
++ (NSData *)EncryptData:(NSData *)contextData publicKey:(NSString *)publicKey{
+    if(!contextData || !publicKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self GetPublicKey:publicKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self encryptData:contextData withKeyRef:keyRef isSign:NO];
+}
+
+
+/**
+ * 公钥加密
+ */
++ (NSString *)EncryptString:(NSString *)context publicWithContextFile:(NSString *)path
+{
+    if (!context||!path) return nil;
+    
+    SecKeyRef keyRef = [self getPublicKeyRefWithContentsOfFile:path];
+    if(!keyRef){
+        return nil;
+    }
+    NSData * data = [self encryptData:[context dataUsingEncoding:NSUTF8StringEncoding] withKeyRef:keyRef isSign:NO];
+    NSString *ret = PIGbase64_encode_data(data);
+    return ret;
+}
+
+
+/**
+ * 公钥加密
+ */
++ (NSData *)EncryptData:(NSData *)contextData publicWithContextFile:(NSString *)path{
+    if (!contextData||!path) return nil;
+    
+    SecKeyRef keyRef = [self getPublicKeyRefWithContentsOfFile:path];
+    if(!keyRef){
+        return nil;
+    }
+    NSData * data = [self encryptData:contextData withKeyRef:keyRef isSign:NO];
+    return data;
+}
+
+
+/**
+ * 公钥解密
+ */
++ (NSString *)DecryptString:(NSString *)context publicKey:(NSString *)publicKey{
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:context options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    data = [self DecryptData:data publicKey:publicKey];
+    NSString *ret = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return ret;
+}
+/**
+ * 公钥解密
+ */
++ (NSData *)DecryptData:(NSData *)contextData publicKey:(NSString *)publicKey{
+    if(!contextData || !publicKey){
+        return nil;
+    }
+    SecKeyRef keyRef = [self GetPublicKey:publicKey];
+    if(!keyRef){
+        return nil;
+    }
+    return [self decryptData:contextData withKeyRef:keyRef];
+}
+
+
+/**
+ * 公钥解密
+ */
++ (NSData *)DecryptData:(NSData *)contextData publicWithContextFile:(NSString *)path{
+    
+    if (!contextData||!path) return nil;
+    
+    SecKeyRef keyRef = [self getPublicKeyRefWithContentsOfFile:path];
+    if(!keyRef){
+        return nil;
+    }
+      return [self decryptData:contextData withKeyRef:keyRef];
+}
+/**
+ * 公钥解密
+ */
++ (NSString *)DecryptString:(NSString *)context publicWithContextFile:(NSString *)path{
+    
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:context options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    if (!data||!path) return nil;
+    
+    SecKeyRef keyRef = [self getPublicKeyRefWithContentsOfFile:path];
+    if(!keyRef){
+        return nil;
+    }
+    NSData * da = [self decryptData:data withKeyRef:keyRef];
+    NSString *ret = [[NSString alloc] initWithData:[self decryptData:data withKeyRef:keyRef] encoding:NSUTF8StringEncoding];
+    return ret;
+}
 
 @end

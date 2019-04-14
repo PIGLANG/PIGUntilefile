@@ -1,0 +1,531 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0EFE3F7B2C576EC8DD66573D1F98C81F /* PIGAESUntileFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 101CA4E75D913D28D97BC32C9EA3AEF5 /* PIGAESUntileFile.m */; };
+		102EFA28E0236778E36ED8BE318B9F42 /* NSObject+PIGCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 74111BBF093600713C2D53C4B16517CE /* NSObject+PIGCategory.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		337FF3E38344F735AE7FC64CBBFD7C49 /* PIGSHAUntileFile.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1936B823434A46D383C645EFAD411 /* PIGSHAUntileFile.m */; };
+		411EDE2DC9AAFD7D1AD9495AED7EB47D /* PIGMd5UntileFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC97A800C55E010D63943CFCC4F8016 /* PIGMd5UntileFile.m */; };
+		514DE9150928E6E85C92905F78F9B6FC /* PIGSHAUntileFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B72D0D372FB0A2AE6F335EF107543F9 /* PIGSHAUntileFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		6D2C2692D7AA11488E65773F8D64816C /* PIG3DesUntileFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ED59F107C31F65E49B6A80508B2BBEF /* PIG3DesUntileFile.m */; };
+		9556777173E85121A346F5893BA7E0D3 /* PIGRSAUntileFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E473E9F34C338B6BE515B3744AAB0F1 /* PIGRSAUntileFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AB31EB108B0E7676E822C153D7E816F8 /* PIG3DesUntileFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 77E15D8C8D9D5130F503A4D4B5B4FB47 /* PIG3DesUntileFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B9CA4F73C555DAE07A9C9D0F28642C9B /* Pods-PIGUntileFileDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7021C3F615DF20A339484F246B76696D /* Pods-PIGUntileFileDemo-dummy.m */; };
+		C46C917D3AB04C179695AB92115BE730 /* PIGMd5UntileFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C276917A29E38E44B7F039C1436202E /* PIGMd5UntileFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D90F1937D2A9FA6D7F81E5AE1F867022 /* PIGAESUntileFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 28595D0E6A768D496735A94EA80E15D6 /* PIGAESUntileFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DADDB31263500C0CB44384195270E0A0 /* PIGUntilefile-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8696DFC74DBBF8FB9BC0A5273C418 /* PIGUntilefile-dummy.m */; };
+		E17BCA2771EA64AE4C6C23E489F1B9CE /* PIGRSAUntileFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFC082F9DF86E582DC6320A4EB5FFAC /* PIGRSAUntileFile.m */; };
+		E526E08F148374E80269A3FE39B9C216 /* NSObject+PIGCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B2962F8D9ED8F79CC7E383AC260F6364 /* NSObject+PIGCategory.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		70E59C8BC60E682302EA30C17B91CCD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3580C5A54E6A32EC515D08A550BE64B;
+			remoteInfo = PIGUntilefile;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0058D36DE62E66BEF442FBFBFE7B2295 /* libPIGUntilefile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPIGUntilefile.a; path = libPIGUntilefile.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		04C2B911A37778F09202FCF61E92822C /* libPods-PIGUntileFileDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-PIGUntileFileDemo.a"; path = "libPods-PIGUntileFileDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		101CA4E75D913D28D97BC32C9EA3AEF5 /* PIGAESUntileFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PIGAESUntileFile.m; path = PIGUntilefile/PIGAESUntileFile.m; sourceTree = "<group>"; };
+		199CAA71AB1E6189CA92777DD83A8E43 /* Pods-PIGUntileFileDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PIGUntileFileDemo-frameworks.sh"; sourceTree = "<group>"; };
+		1AC4A2E6C973E3CBF7FCD9D1813FB873 /* PIGUntilefile-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PIGUntilefile-prefix.pch"; sourceTree = "<group>"; };
+		1AF7C15FF6F3C483156374D0B04FD272 /* Pods-PIGUntileFileDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PIGUntileFileDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1E473E9F34C338B6BE515B3744AAB0F1 /* PIGRSAUntileFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PIGRSAUntileFile.h; path = PIGUntilefile/PIGRSAUntileFile.h; sourceTree = "<group>"; };
+		28595D0E6A768D496735A94EA80E15D6 /* PIGAESUntileFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PIGAESUntileFile.h; path = PIGUntilefile/PIGAESUntileFile.h; sourceTree = "<group>"; };
+		2C276917A29E38E44B7F039C1436202E /* PIGMd5UntileFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PIGMd5UntileFile.h; path = PIGUntilefile/PIGMd5UntileFile.h; sourceTree = "<group>"; };
+		3DB8696DFC74DBBF8FB9BC0A5273C418 /* PIGUntilefile-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PIGUntilefile-dummy.m"; sourceTree = "<group>"; };
+		4AFC082F9DF86E582DC6320A4EB5FFAC /* PIGRSAUntileFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PIGRSAUntileFile.m; path = PIGUntilefile/PIGRSAUntileFile.m; sourceTree = "<group>"; };
+		5ED59F107C31F65E49B6A80508B2BBEF /* PIG3DesUntileFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PIG3DesUntileFile.m; path = PIGUntilefile/PIG3DesUntileFile.m; sourceTree = "<group>"; };
+		65738972F4AA37F31E6A40CAFC75AFF6 /* Pods-PIGUntileFileDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PIGUntileFileDemo.release.xcconfig"; sourceTree = "<group>"; };
+		6B72D0D372FB0A2AE6F335EF107543F9 /* PIGSHAUntileFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PIGSHAUntileFile.h; path = PIGUntilefile/PIGSHAUntileFile.h; sourceTree = "<group>"; };
+		6CC97A800C55E010D63943CFCC4F8016 /* PIGMd5UntileFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PIGMd5UntileFile.m; path = PIGUntilefile/PIGMd5UntileFile.m; sourceTree = "<group>"; };
+		7021C3F615DF20A339484F246B76696D /* Pods-PIGUntileFileDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PIGUntileFileDemo-dummy.m"; sourceTree = "<group>"; };
+		74111BBF093600713C2D53C4B16517CE /* NSObject+PIGCategory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+PIGCategory.h"; path = "PIGUntilefile/NSObject+PIGCategory.h"; sourceTree = "<group>"; };
+		77E15D8C8D9D5130F503A4D4B5B4FB47 /* PIG3DesUntileFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PIG3DesUntileFile.h; path = PIGUntilefile/PIG3DesUntileFile.h; sourceTree = "<group>"; };
+		78B5BF59B1E76B013F0789E730E576F7 /* Pods-PIGUntileFileDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PIGUntileFileDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		7C4BE8A8EED2E882604F4DB3A500823B /* PIGUntilefile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PIGUntilefile.xcconfig; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A0B1936B823434A46D383C645EFAD411 /* PIGSHAUntileFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PIGSHAUntileFile.m; path = PIGUntilefile/PIGSHAUntileFile.m; sourceTree = "<group>"; };
+		B2962F8D9ED8F79CC7E383AC260F6364 /* NSObject+PIGCategory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+PIGCategory.m"; path = "PIGUntilefile/NSObject+PIGCategory.m"; sourceTree = "<group>"; };
+		C8E122290EFE0747D9CFD76C62A0F7EE /* Pods-PIGUntileFileDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PIGUntileFileDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		F3C3958F66DA265EA95ED528392D64D6 /* Pods-PIGUntileFileDemo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PIGUntileFileDemo-resources.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		13ADCA37B5C6CDAF692C81D92580BF32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93CAE7EC46A008A42FEA4210F1B5B986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B69DDB3AA900D150842D3267A3C852D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				641CA808AA729003E7EC6EB094D3A2D0 /* Pods-PIGUntileFileDemo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		641CA808AA729003E7EC6EB094D3A2D0 /* Pods-PIGUntileFileDemo */ = {
+			isa = PBXGroup;
+			children = (
+				1AF7C15FF6F3C483156374D0B04FD272 /* Pods-PIGUntileFileDemo-acknowledgements.markdown */,
+				78B5BF59B1E76B013F0789E730E576F7 /* Pods-PIGUntileFileDemo-acknowledgements.plist */,
+				7021C3F615DF20A339484F246B76696D /* Pods-PIGUntileFileDemo-dummy.m */,
+				199CAA71AB1E6189CA92777DD83A8E43 /* Pods-PIGUntileFileDemo-frameworks.sh */,
+				F3C3958F66DA265EA95ED528392D64D6 /* Pods-PIGUntileFileDemo-resources.sh */,
+				C8E122290EFE0747D9CFD76C62A0F7EE /* Pods-PIGUntileFileDemo.debug.xcconfig */,
+				65738972F4AA37F31E6A40CAFC75AFF6 /* Pods-PIGUntileFileDemo.release.xcconfig */,
+			);
+			name = "Pods-PIGUntileFileDemo";
+			path = "Target Support Files/Pods-PIGUntileFileDemo";
+			sourceTree = "<group>";
+		};
+		7B7287E694D88D7B5430E417DBF92723 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8CF627D3651AA1C27012BABC82EB52A9 /* PIGUntilefile */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
+				7B7287E694D88D7B5430E417DBF92723 /* Pods */,
+				8F2FA368A3B40DFFDA15DB8075005BBF /* Products */,
+				0B69DDB3AA900D150842D3267A3C852D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8CF627D3651AA1C27012BABC82EB52A9 /* PIGUntilefile */ = {
+			isa = PBXGroup;
+			children = (
+				74111BBF093600713C2D53C4B16517CE /* NSObject+PIGCategory.h */,
+				B2962F8D9ED8F79CC7E383AC260F6364 /* NSObject+PIGCategory.m */,
+				77E15D8C8D9D5130F503A4D4B5B4FB47 /* PIG3DesUntileFile.h */,
+				5ED59F107C31F65E49B6A80508B2BBEF /* PIG3DesUntileFile.m */,
+				28595D0E6A768D496735A94EA80E15D6 /* PIGAESUntileFile.h */,
+				101CA4E75D913D28D97BC32C9EA3AEF5 /* PIGAESUntileFile.m */,
+				2C276917A29E38E44B7F039C1436202E /* PIGMd5UntileFile.h */,
+				6CC97A800C55E010D63943CFCC4F8016 /* PIGMd5UntileFile.m */,
+				1E473E9F34C338B6BE515B3744AAB0F1 /* PIGRSAUntileFile.h */,
+				4AFC082F9DF86E582DC6320A4EB5FFAC /* PIGRSAUntileFile.m */,
+				6B72D0D372FB0A2AE6F335EF107543F9 /* PIGSHAUntileFile.h */,
+				A0B1936B823434A46D383C645EFAD411 /* PIGSHAUntileFile.m */,
+				AB866138B961DC550698F7127D65D9FE /* Support Files */,
+			);
+			name = PIGUntilefile;
+			path = PIGUntilefile;
+			sourceTree = "<group>";
+		};
+		8F2FA368A3B40DFFDA15DB8075005BBF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0058D36DE62E66BEF442FBFBFE7B2295 /* libPIGUntilefile.a */,
+				04C2B911A37778F09202FCF61E92822C /* libPods-PIGUntileFileDemo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB866138B961DC550698F7127D65D9FE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7C4BE8A8EED2E882604F4DB3A500823B /* PIGUntilefile.xcconfig */,
+				3DB8696DFC74DBBF8FB9BC0A5273C418 /* PIGUntilefile-dummy.m */,
+				1AC4A2E6C973E3CBF7FCD9D1813FB873 /* PIGUntilefile-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PIGUntilefile";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		52799C4E5B9E1509CF0D1AE339D975B6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				102EFA28E0236778E36ED8BE318B9F42 /* NSObject+PIGCategory.h in Headers */,
+				AB31EB108B0E7676E822C153D7E816F8 /* PIG3DesUntileFile.h in Headers */,
+				D90F1937D2A9FA6D7F81E5AE1F867022 /* PIGAESUntileFile.h in Headers */,
+				C46C917D3AB04C179695AB92115BE730 /* PIGMd5UntileFile.h in Headers */,
+				9556777173E85121A346F5893BA7E0D3 /* PIGRSAUntileFile.h in Headers */,
+				514DE9150928E6E85C92905F78F9B6FC /* PIGSHAUntileFile.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8949AEDE7F643E4DED9DCEF245754AA1 /* Pods-PIGUntileFileDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5F4EB07511A57556F5200F8D5915E8B6 /* Build configuration list for PBXNativeTarget "Pods-PIGUntileFileDemo" */;
+			buildPhases = (
+				6B48AC5FF1A1F0C98880D40DC77E37A2 /* Sources */,
+				93CAE7EC46A008A42FEA4210F1B5B986 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6511C0BB0F80A37FE3C6ACE8C93A66F9 /* PBXTargetDependency */,
+			);
+			name = "Pods-PIGUntileFileDemo";
+			productName = "Pods-PIGUntileFileDemo";
+			productReference = 04C2B911A37778F09202FCF61E92822C /* libPods-PIGUntileFileDemo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F3580C5A54E6A32EC515D08A550BE64B /* PIGUntilefile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDAC62433AB98A98672088C5DBACE0AF /* Build configuration list for PBXNativeTarget "PIGUntilefile" */;
+			buildPhases = (
+				92461C98D827806104EE62A2F6F29E99 /* Sources */,
+				13ADCA37B5C6CDAF692C81D92580BF32 /* Frameworks */,
+				52799C4E5B9E1509CF0D1AE339D975B6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PIGUntilefile;
+			productName = PIGUntilefile;
+			productReference = 0058D36DE62E66BEF442FBFBFE7B2295 /* libPIGUntilefile.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 8F2FA368A3B40DFFDA15DB8075005BBF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3580C5A54E6A32EC515D08A550BE64B /* PIGUntilefile */,
+				8949AEDE7F643E4DED9DCEF245754AA1 /* Pods-PIGUntileFileDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B48AC5FF1A1F0C98880D40DC77E37A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9CA4F73C555DAE07A9C9D0F28642C9B /* Pods-PIGUntileFileDemo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92461C98D827806104EE62A2F6F29E99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E526E08F148374E80269A3FE39B9C216 /* NSObject+PIGCategory.m in Sources */,
+				6D2C2692D7AA11488E65773F8D64816C /* PIG3DesUntileFile.m in Sources */,
+				0EFE3F7B2C576EC8DD66573D1F98C81F /* PIGAESUntileFile.m in Sources */,
+				411EDE2DC9AAFD7D1AD9495AED7EB47D /* PIGMd5UntileFile.m in Sources */,
+				E17BCA2771EA64AE4C6C23E489F1B9CE /* PIGRSAUntileFile.m in Sources */,
+				337FF3E38344F735AE7FC64CBBFD7C49 /* PIGSHAUntileFile.m in Sources */,
+				DADDB31263500C0CB44384195270E0A0 /* PIGUntilefile-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6511C0BB0F80A37FE3C6ACE8C93A66F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PIGUntilefile;
+			target = F3580C5A54E6A32EC515D08A550BE64B /* PIGUntilefile */;
+			targetProxy = 70E59C8BC60E682302EA30C17B91CCD3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1EE19F5DD95931924296F637BF18BD8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		324390D91A28FFE0C7130B480172A330 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8E122290EFE0747D9CFD76C62A0F7EE /* Pods-PIGUntileFileDemo.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52B5C5676D093CBC3CD6050468660458 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C4BE8A8EED2E882604F4DB3A500823B /* PIGUntilefile.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PIGUntilefile/PIGUntilefile-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PIGUntilefile;
+				PRODUCT_NAME = PIGUntilefile;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6BD754936CD90D0AAB63FAFB94D82EEC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C4BE8A8EED2E882604F4DB3A500823B /* PIGUntilefile.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/PIGUntilefile/PIGUntilefile-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = PIGUntilefile;
+				PRODUCT_NAME = PIGUntilefile;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		80C794667C71D7290FD52F930847AFD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65738972F4AA37F31E6A40CAFC75AFF6 /* Pods-PIGUntileFileDemo.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F4568DEE257655D290C2B9CEAB37C934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EE19F5DD95931924296F637BF18BD8F /* Debug */,
+				F4568DEE257655D290C2B9CEAB37C934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5F4EB07511A57556F5200F8D5915E8B6 /* Build configuration list for PBXNativeTarget "Pods-PIGUntileFileDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				324390D91A28FFE0C7130B480172A330 /* Debug */,
+				80C794667C71D7290FD52F930847AFD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDAC62433AB98A98672088C5DBACE0AF /* Build configuration list for PBXNativeTarget "PIGUntilefile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52B5C5676D093CBC3CD6050468660458 /* Debug */,
+				6BD754936CD90D0AAB63FAFB94D82EEC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

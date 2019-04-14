@@ -13,46 +13,90 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PIGRSAUntileFile : NSObject
 
 
+
 /**
- *  加密方法 .der 格式
- *
- * @param context 加密内容
- * @param path  der文件 路径
+ * 公钥加密
  */
-+(NSString*)EncryptString:(NSString*)context publicWithContextFile:(NSString*)path;
++ (NSString *)EncryptString:(NSString *)context publicKey:(NSString *)publicKey;
 
 
 /**
- *  解密方法 .p12 格式
- *
- * @param context 需要解密内容
- * @param path  p12文件 路径
- * @param password 文件打开的密码
+ * 公钥加密
  */
-+(NSString*)DecryptString:(NSString*)context privateWithContextFile:(NSString*)path password:(NSString*)password;
++ (NSData *)EncryptData:(NSData *)contextData publicKey:(NSString *)publicKey;
 
 
-// 公钥解密
+/**
+ * 公钥加密
+ */
++ (NSString *)EncryptString:(NSString *)context publicWithContextFile:(NSString *)path;
+
+/**
+ * 公钥加密
+ */
++ (NSData *)EncryptData:(NSData *)contextData publicWithContextFile:(NSString *)path;
+
+/**
+ * 公钥解密
+ */
 + (NSString *)DecryptString:(NSString *)context publicKey:(NSString *)publicKey;
 
 
+/**
+ * 公钥解密
+ */
++ (NSData *)DecryptData:(NSData *)contextData publicKey:(NSString *)publicKey;
 
 /**
- *  加密方法
- *
+ * 公钥解密
+ */
++ (NSString *)DecryptString:(NSString *)context publicWithContextFile:(NSString *)path;
+
+
+
+/**
+ * 公钥解密
+ */
++ (NSData *)DecryptData:(NSData *)contextData publicWithContextFile:(NSString *)path;
+
+
+
+
+/**
+ * 私钥加密
  * @param context 加密内容
- * @param key  加密的key
+ * @param privateKey 私钥
  */
-+(NSString*)EncryptString:(NSString*)context publicKey:(NSString*)key;
++(NSString *)EncryptString:(NSString *)context privateKey:(NSString *)privateKey;
+
+
 
 
 /**
- *  解密方法
- *
- * @param context 需要解密内容
- * @param key  解密的key
+ * 私钥加密
+ * @param contextData 加密内容
+ * @param privateKey 私钥
  */
-+(NSString*)DecryptString:(NSString*)context privateKey:(NSString*)key;
++ (NSData *)EncryptData:(NSData *)contextData privateKey:(NSString *)privateKey;
+
+
+
+
+/**
+ * 私钥解密
+ *
+ */
++ (NSData *)DecryptData:(NSData *)contextData privateKey:(NSString *)privateKey;
+
+
+/**
+ * 私钥解密
+ *
+ */
+
++ (NSString *)DecryptString:(NSString *)str privateKey:(NSString *)privateKey;
+
+
 
 @end
 
