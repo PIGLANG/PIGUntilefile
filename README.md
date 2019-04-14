@@ -13,6 +13,11 @@ PIG3DesUntileFile 3DES 加解密
 PIGSHAUntileFile SHA 加解密 
 
 
+# version 1.6.0 
+
+版本 RSA 加解密 添加 p12 文件 
+
+
 # version 1.5.0 
 
 版本 修改 RSA 公钥加密
