@@ -12,6 +12,12 @@ PIG3DesUntileFile 3DES 加解密
 
 PIGSHAUntileFile SHA 加解密 
 
+
+# version 1.5.0 
+
+版本 修改 RSA 公钥加密
+
+
 # version 1.3.0 版本 
 在 RSA 版本中 添加 公钥解密 功能
 
@@ -22,7 +28,6 @@ PIGSHAUntileFile SHA 加解密
 主要是修改 base64 编码  解码  与 其他的文件中base64编码和解码 冲突问题。
 
 
-# version 1.3.0 版本 添加 RSA 公钥加密
 
 
 
