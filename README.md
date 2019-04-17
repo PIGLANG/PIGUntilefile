@@ -12,6 +12,10 @@ PIG3DesUntileFile 3DES 加解密
 
 PIGSHAUntileFile SHA 加解密 
 
+# version 1.6.1
+
+ 修改base64 编码时 因长度的问题导致编码不在正确。
+
 
 # version 1.6.0 
 

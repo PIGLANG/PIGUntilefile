@@ -12,7 +12,7 @@
 
 //编码
 NSString * PIGbase64_encode_data(NSData*data){
-    data = [data base64EncodedDataWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
+    data = [data base64EncodedDataWithOptions:(0)];
     NSString * ret = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     return ret;
 }
@@ -26,7 +26,7 @@ NSData * PIGbase64_decode(NSString*base64String){ //base64String 为 base64 字�
 //编码
 NSString* PIGBase64Encoding(NSString *string ){
     NSData * data= [string dataUsingEncoding:NSUTF8StringEncoding];
-    NSString * RSAKey = [data base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
+    NSString * RSAKey = [data base64EncodedStringWithOptions:(0)];
     return RSAKey;
 }
 
